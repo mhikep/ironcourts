@@ -650,7 +650,7 @@
         <h2 style="margin-bottom: 1rem; color: #1b1f3b;">Team Access</h2>
         <p style="margin-bottom: 1.5rem; color: #606470;">Please enter the password to view the basketball team website.</p>
         <input type="password" id="password-input" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 4px; margin-bottom: 1rem; font-size: 1rem;" placeholder="Enter password">
-        <button id="password-submit" style="background-color: #0062cc; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 4px; cursor: pointer; font-weight: 600; width: 100%;">Enter</button>
+        <button onclick="validatePassword()" style="background-color: #0062cc; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 4px; cursor: pointer; font-weight: 600; width: 100%;">Enter</button>
         <p id="password-error" style="color: #e53e3e; margin-top: 1rem; display: none;">Incorrect password. Please try again.</p>
     </div>
 </div>
@@ -925,37 +925,34 @@
             });
         });
     <script>
-    // Password protection script
-    (function() {
-        // Set your password here
-        const correctPassword = "basketball2025";
+    // Simplified password protection script
+    // Set your password here
+    const correctPassword = "basketball2025";
+    
+    // Check if already authenticated in this session
+    if (sessionStorage.getItem('authenticated') === 'true') {
+        document.getElementById('password-overlay').style.display = 'none';
+    }
+    
+    // Add enter key support
+    document.getElementById('password-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            validatePassword();
+        }
+    });
+    
+    // Password validation function
+    function validatePassword() {
+        const password = document.getElementById('password-input').value;
         
-        // Check if already authenticated in this session
-        if (sessionStorage.getItem('authenticated') === 'true') {
+        if (password === correctPassword) {
             document.getElementById('password-overlay').style.display = 'none';
-            return;
+            sessionStorage.setItem('authenticated', 'true');
+        } else {
+            document.getElementById('password-error').style.display = 'block';
+            document.getElementById('password-input').value = '';
         }
-        
-        // Password validation
-        document.getElementById('password-submit').addEventListener('click', validatePassword);
-        document.getElementById('password-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                validatePassword();
-            }
-        });
-        
-        function validatePassword() {
-            const password = document.getElementById('password-input').value;
-            
-            if (password === correctPassword) {
-                document.getElementById('password-overlay').style.display = 'none';
-                sessionStorage.setItem('authenticated', 'true');
-            } else {
-                document.getElementById('password-error').style.display = 'block';
-                document.getElementById('password-input').value = '';
-            }
-        }
-    })();
+    }
 </script>
 </body>
 </html>
