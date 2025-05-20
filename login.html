@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Login</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', -apple-system, sans-serif;
+            background-color: #1b1f3b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #1b1f3b;
+            margin-bottom: 1rem;
+        }
+        p {
+            color: #606470;
+            margin-bottom: 1.5rem;
+        }
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #0062cc;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #004999;
+        }
+        .error {
+            color: #e53e3e;
+            margin-top: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Team Access</h1>
+        <p>Please enter the password to view the basketball team website.</p>
+        <form id="loginForm">
+            <input type="password" id="password" placeholder="Enter password">
+            <button type="submit">Enter</button>
+            <p id="error" class="error">Incorrect password. Please try again.</p>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            
+            // Change 'basketball2025' to your desired password
+            if (password === 'basketball2025') {
+                // Store authentication in localStorage
+                localStorage.setItem('auth', 'true');
+                // Redirect to the main page
+                window.location.href = 'index.html';
+            } else {
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('password').value = '';
+            }
+        });
+    </script>
+</body>
+</html>
